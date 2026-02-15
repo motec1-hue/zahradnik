@@ -1,0 +1,5 @@
+{
+  "name": "Profesionálny záhradník",
+  "description": "Aplikácia, ktorá generuje týždenné záhradnícke tipy a simuluje ich odosielanie e-mailom na zadanú adresu. Získajte aktuálne rady pre vašu záhradu každý týždeň.",
+  "requestFramePermissions": []
+}
