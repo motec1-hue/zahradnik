@@ -1,30 +1,34 @@
 
 import { GoogleGenAI } from "@google/genai";
 
-// FIX: Per coding guidelines, API_KEY is assumed to be present in process.env.
-// The explicit check and variable assignment have been removed.
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export async function generateGardeningTips(): Promise<string> {
   try {
     const today = new Date();
     const prompt = `
-      Správaj sa ako profesionálny záhradník. Vygeneruj týždenný newsletter pre záhradkárov v strednej Európe pre aktuálny týždeň od ${today.toLocaleDateString('sk-SK')}.
-      Témy by mali byť relevantné pre aktuálnu sezónu a počasie. Zahrň tipy na sadenie, strihanie, ochranu proti škodcom a všeobecnú údržbu záhrady.
-      Naformátuj výstup ako jednoduchý newsletter s pútavým predmetom a niekoľkými sekciami s jasnými nadpismi (použi markdown pre nadpisy, napr. ## Názov sekcie).
-      Celý text musí byť v slovenskom jazyku.
+      Správaj sa ako profesionálny záhradník so 40-ročnou praxou. Vygeneruj komplexný týždenný dashboard pre záhradkárov v strednej Európe pre týždeň začínajúci ${today.toLocaleDateString('sk-SK')}.
+      Obsah musí byť vysoko relevantný pre tento konkrétny dátum, aktuálne počasie (napr. skorá jar, mrazy, sucho) a vegetačné obdobie.
 
-      Výstup oddeľ predmet od tela pomocou '---'.
+      Štruktúra výstupu (použi Markdown):
+      # [Titulok týždňa - krátky a pútavý]
+      
+      ## Hlavná téma: [Názov témy]
+      [Napíš 2-3 odseky o najdôležitejšej aktivite tento týždeň. Buď odborný, ale prístupný.]
 
-      Príklad formátu:
-      Predmet: Tipy pre Vašu záhradu na tento týždeň
-      ---
-      ## Práce v zeleninovej záhrade
-      - Tip 1...
-      - Tip 2...
+      ## Zoznam prác na tento týždeň
+      - [Úloha 1]
+      - [Úloha 2]
+      - [Úloha 3]
+      - [Úloha 4]
 
-      ## Starostlivosť o ovocné stromy
-      - Tip 1...
+      ## Profi tip záhradníka
+      [Jedna unikátna, možno menej známa rada týkajúca sa údržby, nástrojov alebo rastlín.]
+
+      ## Čo sadiť a siať
+      [Zoznam konkrétnych plodín vhodných pre tento týždeň.]
+
+      Celý text musí byť v slovenskom jazyku. Nepoužívaj úvodné kecy ako "Tu je váš dashboard", začni rovno nadpisom.
     `;
 
     const response = await ai.models.generateContent({
@@ -39,6 +43,6 @@ export async function generateGardeningTips(): Promise<string> {
     }
   } catch (error) {
     console.error("Chyba pri komunikácii s Gemini API:", error);
-    throw new Error("Nepodarilo sa vygenerovať záhradnícke tipy.");
+    throw new Error("Nepodarilo sa vygenerovať záhradnícke rady.");
   }
 }

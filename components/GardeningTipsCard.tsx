@@ -20,8 +20,9 @@ const GardeningTipsCard: React.FC<GardeningTipsCardProps> = ({ tips, userEmail, 
   }, [tips]);
 
   const formatBody = (text: string) => {
-    const elements: (JSX.Element | null)[] = [];
-    let listItems: JSX.Element[] = [];
+    // Fixed: Replaced JSX.Element with React.ReactNode to resolve namespace error
+    const elements: (React.ReactNode | null)[] = [];
+    let listItems: React.ReactNode[] = [];
 
     const flushList = () => {
       if (listItems.length > 0) {
